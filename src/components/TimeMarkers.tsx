@@ -1,4 +1,5 @@
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 
 const TimeMarkers = ({
   startTime,
@@ -7,12 +8,11 @@ const TimeMarkers = ({
   startTime: string;
   endTime: string;
 }) => {
-  const start = parseISO(startTime);
-  const end = parseISO(endTime);
+  const start = toZonedTime(startTime, "UTC");
+  const end = toZonedTime(endTime, "UTC");
+
   const duration = end.getTime() - start.getTime();
   const interval = duration / 10;
-
-  console.log(startTime);
 
   return (
     <div className="relative h-6 flex flex-wrap justify-between w-full px-6 pt-4 pb-8 border-b border-neutral-700">
@@ -21,10 +21,10 @@ const TimeMarkers = ({
         return (
           <p
             key={i}
-            className=" text-xs text-wrap text-muted-foreground"
+            className="text-xs text-wrap text-muted-foreground"
             style={{ left: `${(i / 10) * 100}%` }}
           >
-            {format(time, "HH:mm")}
+            {format(time, "HH:mm 'UTC'")}
           </p>
         );
       })}

@@ -1,7 +1,8 @@
 import { ChevronRight } from "lucide-react";
 import EventMarker from "./EventMarker";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import { Participant } from "../types";
+import { toZonedTime } from "date-fns-tz";
 
 const ParticipantTimeline = ({
   participant,
@@ -13,9 +14,9 @@ const ParticipantTimeline = ({
   endTime: string;
 }) => {
   const getPosition = (time: string) => {
-    const timeMs = parseISO(time).getTime();
-    const startMs = parseISO(startTime).getTime();
-    const endMs = parseISO(endTime).getTime();
+    const timeMs = toZonedTime(time, "UTC").getTime();
+    const startMs = toZonedTime(startTime, "UTC").getTime();
+    const endMs = toZonedTime(endTime, "UTC").getTime();
     return ((timeMs - startMs) / (endMs - startMs)) * 100;
   };
 
@@ -40,14 +41,15 @@ const ParticipantTimeline = ({
           <p className="text-xs text-neutral-400">
             {participant.timelog && participant.timelog.length > 0
               ? `${format(
-                  parseISO(participant.timelog[0].start),
+                  toZonedTime(participant.timelog[0].start, "UTC"),
                   "dd MMM yyyy, HH:mm"
                 )} | Duration: ${format(
-                  parseISO(
+                  toZonedTime(
                     participant.timelog[participant.timelog.length - 1].end ||
-                      endTime
+                      endTime,
+                    "UTC"
                   ).getTime() -
-                    parseISO(participant.timelog[0].start).getTime(),
+                    toZonedTime(participant.timelog[0].start, "UTC").getTime(),
                   "mm"
                 )} Mins`
               : "No timeline data available"}
