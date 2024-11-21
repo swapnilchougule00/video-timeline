@@ -78,13 +78,6 @@ const ParticipantTimeline = ({
             position={timelineStart}
             time={participant.timelog[0].start}
           />
-          <EventMarker
-            type="leave"
-            position={timelineEnd}
-            time={
-              participant.timelog[participant.timelog.length - 1].end || endTime
-            }
-          />
 
           {/* Event markers */}
           {participant.events.mic &&
@@ -119,6 +112,14 @@ const ParticipantTimeline = ({
                 message={event.message}
               />
             ))}
+
+          <EventMarker
+            type="leave"
+            position={timelineEnd}
+            time={
+              participant.timelog[participant.timelog.length - 1].end || endTime
+            }
+          />
         </div>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import { Meeting } from "../types";
 
-
 export const meeting: Meeting = {
   meetingId: "k7tb-chj6-9sjp",
   start: "2024-04-02T11:31:52.746Z",
@@ -120,6 +119,14 @@ export const meeting: Meeting = {
         mic: [
           {
             start: "2024-04-02T11:31:54.699Z",
+            end: "2024-04-02T11:39:29.768Z",
+          },
+          {
+            start: "2024-04-02T11:33:54.699Z",
+            end: "2024-04-02T11:39:29.768Z",
+          },
+          {
+            start: "2024-04-02T11:35:54.699Z",
             end: "2024-04-02T11:39:29.768Z",
           },
           {
